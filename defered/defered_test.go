@@ -48,6 +48,7 @@ func BenchmarkDefered(b *testing.B) {
 
 func BenchmarkReferenceIdle(b *testing.B) {
 	for range b.N {
+		_ = b.N
 	}
 }
 
