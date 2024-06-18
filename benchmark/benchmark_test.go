@@ -13,13 +13,27 @@ import (
 func BenchmarkMakeWithoutNLoop(b *testing.B) {
 	slice := make([]bool, 1000)
 
+	_ = slice
+}
+
+func BenchmarkMakeWithoutNLoopWithAssignment(b *testing.B) {
+	slice := make([]bool, 1000)
+
 	for id := range slice {
 		slice[id] = true
 	}
 }
 
 func BenchmarkMakeWithNLoop(b *testing.B) {
-	for run := 0; run < b.N; run++ {
+	for range b.N {
+		slice := make([]bool, 1000)
+
+		_ = slice
+	}
+}
+
+func BenchmarkMakeWithNLoopWithAssignment(b *testing.B) {
+	for range b.N {
 		slice := make([]bool, 1000)
 
 		for id := range slice {
@@ -34,7 +48,24 @@ func BenchmarkMakeWithNLoopSizeFromEnv(b *testing.B) {
 	size, err := strconv.Atoi(env)
 	require.NoError(b, err)
 
-	for run := 0; run < b.N; run++ {
+	b.ResetTimer()
+
+	for range b.N {
+		slice := make([]bool, size)
+
+		_ = slice
+	}
+}
+
+func BenchmarkMakeWithNLoopSizeFromEnvWithAssignment(b *testing.B) {
+	env := os.Getenv(consts.EnvPrefix + "SIZE")
+
+	size, err := strconv.Atoi(env)
+	require.NoError(b, err)
+
+	b.ResetTimer()
+
+	for range b.N {
 		slice := make([]bool, size)
 
 		for id := range slice {
@@ -51,11 +82,59 @@ func BenchmarkAssignmentSlice(b *testing.B) {
 
 	slice := make([]bool, size)
 
-	for run := 0; run < b.N; run++ {
+	b.ResetTimer()
+
+	for range b.N {
+		for id := range size {
+			slice[id] = true
+		}
+	}
+
+	b.StopTimer()
+
+	require.Len(b, slice, size)
+	require.Equal(b, size, cap(slice))
+}
+
+func BenchmarkAssignmentSliceUseCap(b *testing.B) {
+	env := os.Getenv(consts.EnvPrefix + "SIZE")
+
+	size, err := strconv.Atoi(env)
+	require.NoError(b, err)
+
+	slice := make([]bool, size)
+
+	b.ResetTimer()
+
+	for range b.N {
 		for id := range cap(slice) {
 			slice[id] = true
 		}
 	}
+
+	b.StopTimer()
+
+	require.Len(b, slice, size)
+	require.Equal(b, size, cap(slice))
+}
+
+func BenchmarkAssignmentSliceConsiderMake(b *testing.B) {
+	env := os.Getenv(consts.EnvPrefix + "SIZE")
+
+	size, err := strconv.Atoi(env)
+	require.NoError(b, err)
+
+	b.ResetTimer()
+
+	slice := make([]bool, size)
+
+	for range b.N {
+		for id := range size {
+			slice[id] = true
+		}
+	}
+
+	b.StopTimer()
 
 	require.Len(b, slice, size)
 	require.Equal(b, size, cap(slice))
@@ -69,13 +148,65 @@ func BenchmarkAppendSlice(b *testing.B) {
 
 	slice := make([]bool, 0, size)
 
-	for run := 0; run < b.N; run++ {
+	b.ResetTimer()
+
+	for range b.N {
+		slice = slice[:0]
+
+		for range size {
+			slice = append(slice, true)
+		}
+	}
+
+	b.StopTimer()
+
+	require.Len(b, slice, size)
+	require.Equal(b, size, cap(slice))
+}
+
+func BenchmarkAppendSliceUseCap(b *testing.B) {
+	env := os.Getenv(consts.EnvPrefix + "SIZE")
+
+	size, err := strconv.Atoi(env)
+	require.NoError(b, err)
+
+	slice := make([]bool, 0, size)
+
+	b.ResetTimer()
+
+	for range b.N {
 		slice = slice[:0]
 
 		for range cap(slice) {
 			slice = append(slice, true)
 		}
 	}
+
+	b.StopTimer()
+
+	require.Len(b, slice, size)
+	require.Equal(b, size, cap(slice))
+}
+
+func BenchmarkAppendSliceConsiderMake(b *testing.B) {
+	env := os.Getenv(consts.EnvPrefix + "SIZE")
+
+	size, err := strconv.Atoi(env)
+	require.NoError(b, err)
+
+	b.ResetTimer()
+
+	slice := make([]bool, 0, size)
+
+	for range b.N {
+		slice = slice[:0]
+
+		for range size {
+			slice = append(slice, true)
+		}
+	}
+
+	b.StopTimer()
 
 	require.Len(b, slice, size)
 	require.Equal(b, size, cap(slice))
