@@ -10,13 +10,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func BenchmarkMakeWithoutNLoop(b *testing.B) {
+func BenchmarkMakeWithoutNLoop(*testing.B) {
 	slice := make([]bool, 1000)
 
 	_ = slice
 }
 
-func BenchmarkMakeWithoutNLoopWithAssignment(b *testing.B) {
+func BenchmarkMakeWithoutNLoopWithAssignment(*testing.B) {
 	slice := make([]bool, 1000)
 
 	for id := range slice {
