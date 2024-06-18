@@ -177,6 +177,13 @@ func BenchmarkAppendSliceUseCap(b *testing.B) {
 	for range b.N {
 		slice = slice[:0]
 
+		// If you uncomment these lines, then all three benchmarks from
+		// the BenchmarkAppendSlice* group can begin to run at the same speed equal to
+		// the speed of BenchmarkAppendSlice
+		/*if cap(slice) != size {
+			b.FailNow()
+		}*/
+
 		for range cap(slice) {
 			slice = append(slice, true)
 		}
