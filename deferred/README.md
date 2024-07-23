@@ -39,5 +39,4 @@ BenchmarkNotDeferred11-12          41147313            27.30 ns/op          0 B/
 BenchmarkDeferred11-12             10444593           120.2 ns/op           0 B/op           0 allocs/op
 PASS
 ok      github.com/akramarenkov/goresearch/deferred    27.290s
-
 ```
