@@ -6,32 +6,32 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func one(number int) int {
-	return number
+func one(first int) int {
+	return first
 }
 
 func oneVariadic(numbers ...int) int {
 	return numbers[0]
 }
 
-func two(numberOne, numberTwo int) int {
-	return numberOne | numberTwo
+func two(first, second int) int {
+	return first | second
 }
 
 func twoVariadic(numbers ...int) int {
 	return numbers[0] | numbers[1]
 }
 
-func three(numberOne, numberTwo, numberThree int) int {
-	return numberOne | numberTwo | numberThree
+func three(first, second, third int) int {
+	return first | second | third
 }
 
 func threeVariadic(numbers ...int) int {
 	return numbers[0] | numbers[1] | numbers[2]
 }
 
-func four(numberOne, numberTwo, numberThree, numberFour int) int {
-	return numberOne | numberTwo | numberThree | numberFour
+func four(first, second, third, fourth int) int {
+	return first | second | third | fourth
 }
 
 func fourVariadic(numbers ...int) int {
