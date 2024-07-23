@@ -10,6 +10,15 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func getSizeFromEnv(b *testing.B) int {
+	env := os.Getenv(consts.EnvPrefix + "SIZE")
+
+	size, err := strconv.Atoi(env)
+	require.NoError(b, err)
+
+	return size
+}
+
 func BenchmarkMakeWithoutNLoop(*testing.B) {
 	slice := make([]bool, 1000)
 
@@ -42,11 +51,30 @@ func BenchmarkMakeWithNLoopWithAssignment(b *testing.B) {
 	}
 }
 
-func BenchmarkMakeWithNLoopSizeFromEnv(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
+func BenchmarkMakeWithNLoopScopeEscape(b *testing.B) {
+	var slice []bool
 
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
+	for range b.N {
+		slice = make([]bool, 1000)
+
+		_ = slice
+	}
+}
+
+func BenchmarkMakeWithNLoopWithAssignmentScopeEscape(b *testing.B) {
+	var slice []bool
+
+	for range b.N {
+		slice = make([]bool, 1000)
+
+		for id := range slice {
+			slice[id] = true
+		}
+	}
+}
+
+func BenchmarkMakeWithNLoopSizeFromEnv(b *testing.B) {
+	size := getSizeFromEnv(b)
 
 	b.ResetTimer()
 
@@ -57,11 +85,8 @@ func BenchmarkMakeWithNLoopSizeFromEnv(b *testing.B) {
 	}
 }
 
-func BenchmarkMakeWithNLoopSizeFromEnvWithAssignment(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
+func BenchmarkMakeWithNLoopWithAssignmentSizeFromEnv(b *testing.B) {
+	size := getSizeFromEnv(b)
 
 	b.ResetTimer()
 
@@ -75,54 +100,7 @@ func BenchmarkMakeWithNLoopSizeFromEnvWithAssignment(b *testing.B) {
 }
 
 func BenchmarkAssignmentSlice(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
-
-	slice := make([]bool, size)
-
-	b.ResetTimer()
-
-	for range b.N {
-		for id := range size {
-			slice[id] = true
-		}
-	}
-
-	b.StopTimer()
-
-	require.Len(b, slice, size)
-	require.Equal(b, size, cap(slice))
-}
-
-func BenchmarkAssignmentSliceUseCap(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
-
-	slice := make([]bool, size)
-
-	b.ResetTimer()
-
-	for range b.N {
-		for id := range cap(slice) {
-			slice[id] = true
-		}
-	}
-
-	b.StopTimer()
-
-	require.Len(b, slice, size)
-	require.Equal(b, size, cap(slice))
-}
-
-func BenchmarkAssignmentSliceConsiderMake(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
+	size := getSizeFromEnv(b)
 
 	b.ResetTimer()
 
@@ -137,69 +115,10 @@ func BenchmarkAssignmentSliceConsiderMake(b *testing.B) {
 	b.StopTimer()
 
 	require.Len(b, slice, size)
-	require.Equal(b, size, cap(slice))
 }
 
 func BenchmarkAppendSlice(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
-
-	slice := make([]bool, 0, size)
-
-	b.ResetTimer()
-
-	for range b.N {
-		slice = slice[:0]
-
-		for range size {
-			slice = append(slice, true)
-		}
-	}
-
-	b.StopTimer()
-
-	require.Len(b, slice, size)
-	require.Equal(b, size, cap(slice))
-}
-
-func BenchmarkAppendSliceUseCap(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
-
-	slice := make([]bool, 0, size)
-
-	b.ResetTimer()
-
-	for range b.N {
-		slice = slice[:0]
-
-		// If you uncomment these lines, then all three benchmarks from
-		// the BenchmarkAppendSlice* group can begin to run at the same speed equal to
-		// the speed of BenchmarkAppendSlice
-		/*if cap(slice) != size {
-			b.FailNow()
-		}*/
-
-		for range cap(slice) {
-			slice = append(slice, true)
-		}
-	}
-
-	b.StopTimer()
-
-	require.Len(b, slice, size)
-	require.Equal(b, size, cap(slice))
-}
-
-func BenchmarkAppendSliceConsiderMake(b *testing.B) {
-	env := os.Getenv(consts.EnvPrefix + "SIZE")
-
-	size, err := strconv.Atoi(env)
-	require.NoError(b, err)
+	size := getSizeFromEnv(b)
 
 	b.ResetTimer()
 
@@ -216,5 +135,4 @@ func BenchmarkAppendSliceConsiderMake(b *testing.B) {
 	b.StopTimer()
 
 	require.Len(b, slice, size)
-	require.Equal(b, size, cap(slice))
 }
