@@ -7,74 +7,16 @@ import (
 )
 
 func calculate(number int) int {
-	return number + 1
+	return number + 2*number + 1
 }
 
-func BenchmarkReference(b *testing.B) {
-	// number and require is used to prevent compiler optimizations
-	number := 0
-
-	for range b.N {
-		number = calculate(number)
-	}
-
-	b.StopTimer()
-
-	// meaningless check
-	require.NotNil(b, number)
-}
-
-func BenchmarkNotDeferred(b *testing.B) {
-	// number and require is used to prevent compiler optimizations
-	number := 0
-
-	wrapper := func() {
-		number = calculate(number)
-	}
-
-	main := func() {
-		wrapper()
-	}
-
-	for range b.N {
-		main()
-	}
-
-	b.StopTimer()
-
-	// meaningless check
-	require.NotNil(b, number)
-}
-
-func BenchmarkDeferred(b *testing.B) {
-	// number and require is used to prevent compiler optimizations
-	number := 0
-
-	wrapper := func() {
-		number = calculate(number)
-	}
-
-	main := func() {
-		defer wrapper()
-	}
-
-	for range b.N {
-		main()
-	}
-
-	b.StopTimer()
-
-	// meaningless check
-	require.NotNil(b, number)
-}
-
-func BenchmarkReferenceIdle(b *testing.B) {
+func BenchmarkIdleReference(b *testing.B) {
 	for range b.N {
 		_ = b.N
 	}
 }
 
-func BenchmarkNotDeferredIdle(b *testing.B) {
+func BenchmarkIdleNotDeferred(b *testing.B) {
 	wrapper := func() {
 	}
 
@@ -87,7 +29,7 @@ func BenchmarkNotDeferredIdle(b *testing.B) {
 	}
 }
 
-func BenchmarkDeferredIdle(b *testing.B) {
+func BenchmarkIdleDeferred(b *testing.B) {
 	wrapper := func() {
 	}
 
@@ -100,12 +42,11 @@ func BenchmarkDeferredIdle(b *testing.B) {
 	}
 }
 
-func BenchmarkReference2(b *testing.B) {
+func BenchmarkOneReference(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
 	for range b.N {
-		number = calculate(number)
 		number = calculate(number)
 	}
 
@@ -115,7 +56,7 @@ func BenchmarkReference2(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkNotDeferred2(b *testing.B) {
+func BenchmarkOneNotDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -124,7 +65,6 @@ func BenchmarkNotDeferred2(b *testing.B) {
 	}
 
 	main := func() {
-		wrapper()
 		wrapper()
 	}
 
@@ -138,7 +78,7 @@ func BenchmarkNotDeferred2(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkDeferred2(b *testing.B) {
+func BenchmarkOneDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -147,7 +87,6 @@ func BenchmarkDeferred2(b *testing.B) {
 	}
 
 	main := func() {
-		defer wrapper()
 		defer wrapper()
 	}
 
@@ -161,13 +100,11 @@ func BenchmarkDeferred2(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkReference4(b *testing.B) {
+func BenchmarkTwoReference(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
 	for range b.N {
-		number = calculate(number)
-		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
 	}
@@ -178,7 +115,7 @@ func BenchmarkReference4(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkNotDeferred4(b *testing.B) {
+func BenchmarkTwoNotDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -187,8 +124,6 @@ func BenchmarkNotDeferred4(b *testing.B) {
 	}
 
 	main := func() {
-		wrapper()
-		wrapper()
 		wrapper()
 		wrapper()
 	}
@@ -203,7 +138,7 @@ func BenchmarkNotDeferred4(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkDeferred4(b *testing.B) {
+func BenchmarkTwoDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -212,8 +147,6 @@ func BenchmarkDeferred4(b *testing.B) {
 	}
 
 	main := func() {
-		defer wrapper()
-		defer wrapper()
 		defer wrapper()
 		defer wrapper()
 	}
@@ -228,13 +161,11 @@ func BenchmarkDeferred4(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkReference6(b *testing.B) {
+func BenchmarkFourReference(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
 	for range b.N {
-		number = calculate(number)
-		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
@@ -247,7 +178,7 @@ func BenchmarkReference6(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkNotDeferred6(b *testing.B) {
+func BenchmarkFourNotDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -256,8 +187,6 @@ func BenchmarkNotDeferred6(b *testing.B) {
 	}
 
 	main := func() {
-		wrapper()
-		wrapper()
 		wrapper()
 		wrapper()
 		wrapper()
@@ -274,7 +203,7 @@ func BenchmarkNotDeferred6(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkDeferred6(b *testing.B) {
+func BenchmarkFourDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -283,8 +212,6 @@ func BenchmarkDeferred6(b *testing.B) {
 	}
 
 	main := func() {
-		defer wrapper()
-		defer wrapper()
 		defer wrapper()
 		defer wrapper()
 		defer wrapper()
@@ -301,13 +228,11 @@ func BenchmarkDeferred6(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkReference8(b *testing.B) {
+func BenchmarkSixReference(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
 	for range b.N {
-		number = calculate(number)
-		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
@@ -322,7 +247,7 @@ func BenchmarkReference8(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkNotDeferred8(b *testing.B) {
+func BenchmarkSixNotDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -331,8 +256,6 @@ func BenchmarkNotDeferred8(b *testing.B) {
 	}
 
 	main := func() {
-		wrapper()
-		wrapper()
 		wrapper()
 		wrapper()
 		wrapper()
@@ -351,7 +274,7 @@ func BenchmarkNotDeferred8(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkDeferred8(b *testing.B) {
+func BenchmarkSixDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -360,8 +283,6 @@ func BenchmarkDeferred8(b *testing.B) {
 	}
 
 	main := func() {
-		defer wrapper()
-		defer wrapper()
 		defer wrapper()
 		defer wrapper()
 		defer wrapper()
@@ -380,13 +301,11 @@ func BenchmarkDeferred8(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkReference10(b *testing.B) {
+func BenchmarkEightReference(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
 	for range b.N {
-		number = calculate(number)
-		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
@@ -403,7 +322,7 @@ func BenchmarkReference10(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkNotDeferred10(b *testing.B) {
+func BenchmarkEightNotDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -412,8 +331,6 @@ func BenchmarkNotDeferred10(b *testing.B) {
 	}
 
 	main := func() {
-		wrapper()
-		wrapper()
 		wrapper()
 		wrapper()
 		wrapper()
@@ -434,7 +351,7 @@ func BenchmarkNotDeferred10(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkDeferred10(b *testing.B) {
+func BenchmarkEightDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -443,8 +360,6 @@ func BenchmarkDeferred10(b *testing.B) {
 	}
 
 	main := func() {
-		defer wrapper()
-		defer wrapper()
 		defer wrapper()
 		defer wrapper()
 		defer wrapper()
@@ -465,12 +380,11 @@ func BenchmarkDeferred10(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkReference11(b *testing.B) {
+func BenchmarkTenReference(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
 	for range b.N {
-		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
 		number = calculate(number)
@@ -489,7 +403,7 @@ func BenchmarkReference11(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkNotDeferred11(b *testing.B) {
+func BenchmarkTenNotDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 
@@ -498,7 +412,6 @@ func BenchmarkNotDeferred11(b *testing.B) {
 	}
 
 	main := func() {
-		wrapper()
 		wrapper()
 		wrapper()
 		wrapper()
@@ -521,7 +434,94 @@ func BenchmarkNotDeferred11(b *testing.B) {
 	require.NotNil(b, number)
 }
 
-func BenchmarkDeferred11(b *testing.B) {
+func BenchmarkTenDeferred(b *testing.B) {
+	// number and require is used to prevent compiler optimizations
+	number := 0
+
+	wrapper := func() {
+		number = calculate(number)
+	}
+
+	main := func() {
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+		defer wrapper()
+	}
+
+	for range b.N {
+		main()
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkElevenReference(b *testing.B) {
+	// number and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+		number = calculate(number)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkElevenNotDeferred(b *testing.B) {
+	// number and require is used to prevent compiler optimizations
+	number := 0
+
+	wrapper := func() {
+		number = calculate(number)
+	}
+
+	main := func() {
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+		wrapper()
+	}
+
+	for range b.N {
+		main()
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkElevenDeferred(b *testing.B) {
 	// number and require is used to prevent compiler optimizations
 	number := 0
 

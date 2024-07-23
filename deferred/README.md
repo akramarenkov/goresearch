@@ -13,32 +13,32 @@ goos: linux
 goarch: amd64
 pkg: github.com/akramarenkov/goresearch/deferred
 cpu: AMD Ryzen 5 3600 6-Core Processor              
-BenchmarkReference-12              1000000000           0.2400 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred-12            1000000000           0.2734 ns/op        0 B/op           0 allocs/op
-BenchmarkDeferred-12               459613740            2.651 ns/op         0 B/op           0 allocs/op
-BenchmarkReferenceIdle-12          1000000000           0.2397 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferredIdle-12        1000000000           0.2521 ns/op        0 B/op           0 allocs/op
-BenchmarkDeferredIdle-12           499279069            2.397 ns/op         0 B/op           0 allocs/op
-BenchmarkReference2-12             1000000000           0.5130 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred2-12           318114310            3.580 ns/op         0 B/op           0 allocs/op
-BenchmarkDeferred2-12              290891766            4.199 ns/op         0 B/op           0 allocs/op
-BenchmarkReference4-12             1000000000           0.5121 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred4-12           173232747            6.958 ns/op         0 B/op           0 allocs/op
-BenchmarkDeferred4-12              103334169           11.35 ns/op          0 B/op           0 allocs/op
-BenchmarkReference6-12             1000000000           0.2401 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred6-12           108287259           10.84 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred6-12              75953253            15.10 ns/op          0 B/op           0 allocs/op
-BenchmarkReference8-12             1000000000           0.2709 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred8-12           83960371            14.51 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred8-12              54324934            22.58 ns/op          0 B/op           0 allocs/op
-BenchmarkReference10-12            1000000000           0.4799 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred10-12          69950504            17.50 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred10-12             11628180           103.1 ns/op           0 B/op           0 allocs/op
-BenchmarkReference11-12            1000000000           0.4795 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferred11-12          60796129            18.72 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred11-12             10498614           114.0 ns/op           0 B/op           0 allocs/op
+BenchmarkIdleReference-12            1000000000           0.2404 ns/op        0 B/op           0 allocs/op
+BenchmarkIdleNotDeferred-12          1000000000           0.2570 ns/op        0 B/op           0 allocs/op
+BenchmarkIdleDeferred-12             494790894            2.528 ns/op         0 B/op           0 allocs/op
+BenchmarkOneReference-12             1000000000           0.7324 ns/op        0 B/op           0 allocs/op
+BenchmarkOneNotDeferred-12           1000000000           1.285 ns/op         0 B/op           0 allocs/op
+BenchmarkOneDeferred-12              400940272            2.920 ns/op         0 B/op           0 allocs/op
+BenchmarkTwoReference-12             792121762            1.441 ns/op         0 B/op           0 allocs/op
+BenchmarkTwoNotDeferred-12           239845552            4.998 ns/op         0 B/op           0 allocs/op
+BenchmarkTwoDeferred-12              223878168            5.213 ns/op         0 B/op           0 allocs/op
+BenchmarkFourReference-12            373334564            2.955 ns/op         0 B/op           0 allocs/op
+BenchmarkFourNotDeferred-12          121362987            9.861 ns/op         0 B/op           0 allocs/op
+BenchmarkFourDeferred-12             100000000           11.20 ns/op          0 B/op           0 allocs/op
+BenchmarkSixReference-12             261360696            4.421 ns/op         0 B/op           0 allocs/op
+BenchmarkSixNotDeferred-12           74071412            15.48 ns/op          0 B/op           0 allocs/op
+BenchmarkSixDeferred-12              74974321            16.38 ns/op          0 B/op           0 allocs/op
+BenchmarkEightReference-12           208485084            5.883 ns/op         0 B/op           0 allocs/op
+BenchmarkEightNotDeferred-12         58996754            19.98 ns/op          0 B/op           0 allocs/op
+BenchmarkEightDeferred-12            54326890            22.58 ns/op          0 B/op           0 allocs/op
+BenchmarkTenReference-12             158046957            7.365 ns/op         0 B/op           0 allocs/op
+BenchmarkTenNotDeferred-12           49323393            24.95 ns/op          0 B/op           0 allocs/op
+BenchmarkTenDeferred-12              10196566           115.2 ns/op           0 B/op           0 allocs/op
+BenchmarkElevenReference-12          151637247            8.008 ns/op         0 B/op           0 allocs/op
+BenchmarkElevenNotDeferred-12        40563180            28.23 ns/op          0 B/op           0 allocs/op
+BenchmarkElevenDeferred-12           10656690           115.4 ns/op           0 B/op           0 allocs/op
 PASS
-ok      github.com/akramarenkov/goresearch/deferred    28.192s
+ok      github.com/akramarenkov/goresearch/deferred    36.102s
 ```
 
 Running example without optimizations:
@@ -54,30 +54,30 @@ goos: linux
 goarch: amd64
 pkg: github.com/akramarenkov/goresearch/deferred
 cpu: AMD Ryzen 5 3600 6-Core Processor              
-BenchmarkReference-12              1000000000          1.198 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred-12            613934799           1.732 ns/op         0 B/op           0 allocs/op
-BenchmarkDeferred-12               50022240           24.62 ns/op          0 B/op           0 allocs/op
-BenchmarkReferenceIdle-12          1000000000          0.9864 ns/op        0 B/op           0 allocs/op
-BenchmarkNotDeferredIdle-12        665928440           2.172 ns/op         0 B/op           0 allocs/op
-BenchmarkDeferredIdle-12           43373122           25.24 ns/op          0 B/op           0 allocs/op
-BenchmarkReference2-12             587326773           1.711 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred2-12           230482862           5.009 ns/op         0 B/op           0 allocs/op
-BenchmarkDeferred2-12              32276529           37.65 ns/op          0 B/op           0 allocs/op
-BenchmarkReference4-12             353146765           3.209 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred4-12           131471248           9.037 ns/op         0 B/op           0 allocs/op
-BenchmarkDeferred4-12              18569334           65.00 ns/op          0 B/op           0 allocs/op
-BenchmarkReference6-12             245129386           4.555 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred6-12           85426002           13.32 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred6-12              14991230           80.17 ns/op          0 B/op           0 allocs/op
-BenchmarkReference8-12             191491674           6.167 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred8-12           66419971           17.50 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred8-12              11993130          101.9 ns/op           0 B/op           0 allocs/op
-BenchmarkReference10-12            161488378           7.636 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred10-12          54891165           21.80 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred10-12             8454690           120.0 ns/op           0 B/op           0 allocs/op
-BenchmarkReference11-12            146565667           8.146 ns/op         0 B/op           0 allocs/op
-BenchmarkNotDeferred11-12          48604437           24.71 ns/op          0 B/op           0 allocs/op
-BenchmarkDeferred11-12             9393800           128.1 ns/op           0 B/op           0 allocs/op
+BenchmarkIdleReference-12            1000000000           0.9588 ns/op        0 B/op           0 allocs/op
+BenchmarkIdleNotDeferred-12          616774564            1.777 ns/op         0 B/op           0 allocs/op
+BenchmarkIdleDeferred-12             52924790            23.67 ns/op          0 B/op           0 allocs/op
+BenchmarkOneReference-12             821764441            1.231 ns/op         0 B/op           0 allocs/op
+BenchmarkOneNotDeferred-12           418142164            2.839 ns/op         0 B/op           0 allocs/op
+BenchmarkOneDeferred-12              49587547            24.29 ns/op          0 B/op           0 allocs/op
+BenchmarkTwoReference-12             592550656            1.806 ns/op         0 B/op           0 allocs/op
+BenchmarkTwoNotDeferred-12           215584528            5.252 ns/op         0 B/op           0 allocs/op
+BenchmarkTwoDeferred-12              31485750            37.43 ns/op          0 B/op           0 allocs/op
+BenchmarkFourReference-12            385017488            3.204 ns/op         0 B/op           0 allocs/op
+BenchmarkFourNotDeferred-12          116617800           10.48 ns/op          0 B/op           0 allocs/op
+BenchmarkFourDeferred-12             20572290            57.79 ns/op          0 B/op           0 allocs/op
+BenchmarkSixReference-12             246032240            5.675 ns/op         0 B/op           0 allocs/op
+BenchmarkSixNotDeferred-12           77408386            15.46 ns/op          0 B/op           0 allocs/op
+BenchmarkSixDeferred-12              14758776            80.76 ns/op          0 B/op           0 allocs/op
+BenchmarkEightReference-12           191229417            6.151 ns/op         0 B/op           0 allocs/op
+BenchmarkEightNotDeferred-12         57844016            21.28 ns/op          0 B/op           0 allocs/op
+BenchmarkEightDeferred-12            12251443            99.64 ns/op          0 B/op           0 allocs/op
+BenchmarkTenReference-12             154981694            7.579 ns/op         0 B/op           0 allocs/op
+BenchmarkTenNotDeferred-12           46516177            26.48 ns/op          0 B/op           0 allocs/op
+BenchmarkTenDeferred-12              10175427           117.1 ns/op           0 B/op           0 allocs/op
+BenchmarkElevenReference-12          143367564            8.375 ns/op         0 B/op           0 allocs/op
+BenchmarkElevenNotDeferred-12        42253572            29.29 ns/op          0 B/op           0 allocs/op
+BenchmarkElevenDeferred-12           8851676            136.7 ns/op           0 B/op           0 allocs/op
 PASS
-ok      github.com/akramarenkov/goresearch/deferred    37.981s
+ok      github.com/akramarenkov/goresearch/deferred    36.604s
 ```
