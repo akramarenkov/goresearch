@@ -38,6 +38,44 @@ func fourVariadic(numbers ...int) int {
 	return numbers[0] | numbers[1] | numbers[2] | numbers[3]
 }
 
+func six(first, second, third, fourth, fifth, sixth int) int {
+	return first | second | third | fourth | fifth | sixth
+}
+
+func sixVariadic(numbers ...int) int {
+	return numbers[0] | numbers[1] | numbers[2] | numbers[3] | numbers[4] | numbers[5]
+}
+
+func eight(first, second, third, fourth, fifth, sixth, seventh, eighth int) int {
+	return first | second | third | fourth | fifth | sixth | seventh | eighth
+}
+
+func eightVariadic(numbers ...int) int {
+	return numbers[0] | numbers[1] | numbers[2] | numbers[3] | numbers[4] | numbers[5] |
+		numbers[6] | numbers[7]
+}
+
+func ten(
+	first,
+	second,
+	third,
+	fourth,
+	fifth,
+	sixth,
+	seventh,
+	eighth,
+	ninth,
+	tenth int,
+) int {
+	return first | second | third | fourth | fifth | sixth | seventh | eighth |
+		ninth | tenth
+}
+
+func tenVariadic(numbers ...int) int {
+	return numbers[0] | numbers[1] | numbers[2] | numbers[3] | numbers[4] | numbers[5] |
+		numbers[6] | numbers[7] | numbers[8] | numbers[9]
+}
+
 func BenchmarkOne(b *testing.B) {
 	// number, b.N and require is used to prevent compiler optimizations
 	number := 0
@@ -142,6 +180,90 @@ func BenchmarkFourVariadic(b *testing.B) {
 
 	for range b.N {
 		number = fourVariadic(b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkSix(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = six(b.N, b.N, b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkSixVariadic(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = sixVariadic(b.N, b.N, b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkEight(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = eight(b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkEightVariadic(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = eightVariadic(b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkTen(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = ten(b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkTenVariadic(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	for range b.N {
+		number = tenVariadic(b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N)
 	}
 
 	b.StopTimer()
