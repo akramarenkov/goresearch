@@ -73,6 +73,8 @@ func BenchmarkDirect(b *testing.B) {
 		first, second, third, fourth, fifth, sixth = process(seed)
 	}
 
+	b.StopTimer()
+
 	require.NotNil(b, first)
 	require.NotNil(b, second)
 	require.NotNil(b, third)
@@ -92,6 +94,8 @@ func BenchmarkStruct(b *testing.B) {
 	for range b.N {
 		result = processStruct(seed)
 	}
+
+	b.StopTimer()
 
 	require.NotNil(b, result.First)
 	require.NotNil(b, result.Second)
@@ -113,6 +117,8 @@ func BenchmarkStructPointer(b *testing.B) {
 		result = processStructPointer(seed)
 	}
 
+	b.StopTimer()
+
 	require.NotNil(b, result.First)
 	require.NotNil(b, result.Second)
 	require.NotNil(b, result.Third)
@@ -132,6 +138,8 @@ func BenchmarkStructPointerPassthrough(b *testing.B) {
 	for range b.N {
 		processStructPointerPassthrough(seed, result)
 	}
+
+	b.StopTimer()
 
 	require.NotNil(b, result.First)
 	require.NotNil(b, result.Second)
