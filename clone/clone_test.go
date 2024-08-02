@@ -76,7 +76,7 @@ func BenchmarkThroughCopy(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkSlicesClone16B(b *testing.B) {
+func Benchmark_16B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<4)
 
 	original[0] = true
@@ -95,7 +95,7 @@ func BenchmarkSlicesClone16B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughAppend16B(b *testing.B) {
+func Benchmark_16B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<4)
 
 	original[0] = true
@@ -114,7 +114,7 @@ func BenchmarkThroughAppend16B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughCopy16B(b *testing.B) {
+func Benchmark_16B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<4)
 
 	original[0] = true
@@ -133,7 +133,7 @@ func BenchmarkThroughCopy16B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkSlicesClone32B(b *testing.B) {
+func Benchmark_32B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<5)
 
 	original[0] = true
@@ -152,7 +152,7 @@ func BenchmarkSlicesClone32B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughAppend32B(b *testing.B) {
+func Benchmark_32B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<5)
 
 	original[0] = true
@@ -171,7 +171,7 @@ func BenchmarkThroughAppend32B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughCopy32B(b *testing.B) {
+func Benchmark_32B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<5)
 
 	original[0] = true
@@ -190,7 +190,7 @@ func BenchmarkThroughCopy32B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkSlicesClone64B(b *testing.B) {
+func Benchmark_64B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<6)
 
 	original[0] = true
@@ -209,7 +209,7 @@ func BenchmarkSlicesClone64B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughAppend64B(b *testing.B) {
+func Benchmark_64B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<6)
 
 	original[0] = true
@@ -228,7 +228,7 @@ func BenchmarkThroughAppend64B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughCopy64B(b *testing.B) {
+func Benchmark_64B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<6)
 
 	original[0] = true
@@ -247,7 +247,7 @@ func BenchmarkThroughCopy64B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkSlicesClone128B(b *testing.B) {
+func Benchmark_128B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<7)
 
 	original[0] = true
@@ -266,7 +266,7 @@ func BenchmarkSlicesClone128B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughAppend128B(b *testing.B) {
+func Benchmark_128B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<7)
 
 	original[0] = true
@@ -285,7 +285,7 @@ func BenchmarkThroughAppend128B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughCopy128B(b *testing.B) {
+func Benchmark_128B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<7)
 
 	original[0] = true
@@ -304,7 +304,26 @@ func BenchmarkThroughCopy128B(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughAppend1KB(b *testing.B) {
+func Benchmark_1KB_SlicesClone(b *testing.B) {
+	original := make([]bool, 1<<10)
+
+	original[0] = true
+	original[len(original)-1] = true
+
+	var copied []bool
+
+	b.ResetTimer()
+
+	for range b.N {
+		copied = slices.Clone(original)
+	}
+
+	b.StopTimer()
+
+	require.NotSame(b, original, copied)
+}
+
+func Benchmark_1KB_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<10)
 
 	original[0] = true
@@ -323,7 +342,7 @@ func BenchmarkThroughAppend1KB(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughCopy1KB(b *testing.B) {
+func Benchmark_1KB_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<10)
 
 	original[0] = true
@@ -342,7 +361,26 @@ func BenchmarkThroughCopy1KB(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughAppend1MB(b *testing.B) {
+func Benchmark_1MB_SlicesClone(b *testing.B) {
+	original := make([]bool, 1<<20)
+
+	original[0] = true
+	original[len(original)-1] = true
+
+	var copied []bool
+
+	b.ResetTimer()
+
+	for range b.N {
+		copied = slices.Clone(original)
+	}
+
+	b.StopTimer()
+
+	require.NotSame(b, original, copied)
+}
+
+func Benchmark_1MB_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<20)
 
 	original[0] = true
@@ -361,7 +399,7 @@ func BenchmarkThroughAppend1MB(b *testing.B) {
 	require.NotSame(b, original, copied)
 }
 
-func BenchmarkThroughCopy1MB(b *testing.B) {
+func Benchmark_1MB_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<20)
 
 	original[0] = true
