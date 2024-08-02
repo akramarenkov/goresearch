@@ -1,4 +1,4 @@
-# Copy performance comparison
+# Slice cloning performance comparison
 
 Running example:
 
