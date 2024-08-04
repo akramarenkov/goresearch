@@ -6,17 +6,16 @@ import (
 	"testing"
 
 	"github.com/akramarenkov/goresearch/internal/consts"
-
 	"github.com/stretchr/testify/require"
 )
 
-const defaltSize = 1000
+const defaultSize = 1000
 
 func getSizeFromEnv(b *testing.B) int {
 	env := os.Getenv(consts.EnvPrefix + "SIZE")
 
 	if env == "" {
-		return defaltSize
+		return defaultSize
 	}
 
 	size, err := strconv.Atoi(env)
@@ -26,13 +25,13 @@ func getSizeFromEnv(b *testing.B) int {
 }
 
 func BenchmarkMakeWithoutNLoop(*testing.B) {
-	slice := make([]bool, defaltSize)
+	slice := make([]bool, defaultSize)
 
 	_ = slice
 }
 
 func BenchmarkMakeWithoutNLoopWithAssignment(*testing.B) {
-	slice := make([]bool, defaltSize)
+	slice := make([]bool, defaultSize)
 
 	for id := range slice {
 		slice[id] = true
@@ -41,7 +40,7 @@ func BenchmarkMakeWithoutNLoopWithAssignment(*testing.B) {
 
 func BenchmarkMakeWithNLoop(b *testing.B) {
 	for range b.N {
-		slice := make([]bool, defaltSize)
+		slice := make([]bool, defaultSize)
 
 		_ = slice
 	}
@@ -49,7 +48,7 @@ func BenchmarkMakeWithNLoop(b *testing.B) {
 
 func BenchmarkMakeWithNLoopWithAssignment(b *testing.B) {
 	for range b.N {
-		slice := make([]bool, defaltSize)
+		slice := make([]bool, defaultSize)
 
 		for id := range slice {
 			slice[id] = true
@@ -61,7 +60,7 @@ func BenchmarkMakeWithNLoopScopeEscape(b *testing.B) {
 	var slice []bool
 
 	for range b.N {
-		slice = make([]bool, defaltSize)
+		slice = make([]bool, defaultSize)
 
 		_ = slice
 	}
@@ -71,7 +70,7 @@ func BenchmarkMakeWithNLoopWithAssignmentScopeEscape(b *testing.B) {
 	var slice []bool
 
 	for range b.N {
-		slice = make([]bool, defaltSize)
+		slice = make([]bool, defaultSize)
 
 		for id := range slice {
 			slice[id] = true
