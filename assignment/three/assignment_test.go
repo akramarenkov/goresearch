@@ -1,3 +1,5 @@
+// The difference with the main package is the complete absence of calls to
+// b.ResetTimer()/b.StopTimer().
 package three
 
 import (

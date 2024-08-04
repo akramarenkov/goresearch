@@ -1,3 +1,4 @@
+// The main package which was originally intended to be the only one.
 package assignment
 
 import (

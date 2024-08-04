@@ -1,3 +1,5 @@
+// The difference with the main package is the reverse order of writing the
+// Benchmark* functions.
 package five
 
 import (

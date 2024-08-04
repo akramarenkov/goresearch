@@ -1,3 +1,5 @@
+// The only difference with the main package is the absence of the call to
+// b.StopTimer() in BenchmarkAssignmentSlice.
 package two
 
 import (
