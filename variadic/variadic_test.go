@@ -104,6 +104,24 @@ func BenchmarkOneVariadic(b *testing.B) {
 	require.NotNil(b, number)
 }
 
+func BenchmarkOneVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 1)
+
+	for range b.N {
+		args[0] = b.N
+
+		number = oneVariadic(args...)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
 func BenchmarkTwo(b *testing.B) {
 	// number, b.N and require is used to prevent compiler optimizations
 	number := 0
@@ -124,6 +142,25 @@ func BenchmarkTwoVariadic(b *testing.B) {
 
 	for range b.N {
 		number = twoVariadic(b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkTwoVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 2)
+
+	for range b.N {
+		args[0] = b.N
+		args[1] = b.N
+
+		number = oneVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -160,6 +197,26 @@ func BenchmarkThreeVariadic(b *testing.B) {
 	require.NotNil(b, number)
 }
 
+func BenchmarkThreeVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 3)
+
+	for range b.N {
+		args[0] = b.N
+		args[1] = b.N
+		args[2] = b.N
+
+		number = oneVariadic(args...)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
 func BenchmarkFour(b *testing.B) {
 	// number, b.N and require is used to prevent compiler optimizations
 	number := 0
@@ -180,6 +237,27 @@ func BenchmarkFourVariadic(b *testing.B) {
 
 	for range b.N {
 		number = fourVariadic(b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkFourVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 4)
+
+	for range b.N {
+		args[0] = b.N
+		args[1] = b.N
+		args[2] = b.N
+		args[3] = b.N
+
+		number = oneVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -216,6 +294,29 @@ func BenchmarkSixVariadic(b *testing.B) {
 	require.NotNil(b, number)
 }
 
+func BenchmarkSixVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 6)
+
+	for range b.N {
+		args[0] = b.N
+		args[1] = b.N
+		args[2] = b.N
+		args[3] = b.N
+		args[4] = b.N
+		args[5] = b.N
+
+		number = oneVariadic(args...)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
 func BenchmarkEight(b *testing.B) {
 	// number, b.N and require is used to prevent compiler optimizations
 	number := 0
@@ -244,6 +345,31 @@ func BenchmarkEightVariadic(b *testing.B) {
 	require.NotNil(b, number)
 }
 
+func BenchmarkEightVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 8)
+
+	for range b.N {
+		args[0] = b.N
+		args[1] = b.N
+		args[2] = b.N
+		args[3] = b.N
+		args[4] = b.N
+		args[5] = b.N
+		args[6] = b.N
+		args[7] = b.N
+
+		number = oneVariadic(args...)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
 func BenchmarkTen(b *testing.B) {
 	// number, b.N and require is used to prevent compiler optimizations
 	number := 0
@@ -264,6 +390,33 @@ func BenchmarkTenVariadic(b *testing.B) {
 
 	for range b.N {
 		number = tenVariadic(b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N, b.N)
+	}
+
+	b.StopTimer()
+
+	// meaningless check
+	require.NotNil(b, number)
+}
+
+func BenchmarkTenVariadicSlice(b *testing.B) {
+	// number, b.N and require is used to prevent compiler optimizations
+	number := 0
+
+	args := make([]int, 10)
+
+	for range b.N {
+		args[0] = b.N
+		args[1] = b.N
+		args[2] = b.N
+		args[3] = b.N
+		args[4] = b.N
+		args[5] = b.N
+		args[6] = b.N
+		args[7] = b.N
+		args[8] = b.N
+		args[9] = b.N
+
+		number = oneVariadic(args...)
 	}
 
 	b.StopTimer()
