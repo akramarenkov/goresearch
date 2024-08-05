@@ -5,41 +5,43 @@ import (
 	"unsafe"
 )
 
-// Difference between two independent slices
-type diff struct {
+// Difference between two independent slices.
+type growDiff struct {
 	// Iteration of append at which the slice address change was determined
 	DetectedAt int
 	// Slice lengths ratio
 	Factor float64
-	// Length of the independent slice that came before the last known
+	// Length of the independent slice that came before the some known
 	From int
-	// Length of the last known independent slice
+	// Length of some known independent slice
 	To int
 }
 
-func researchGrowFactor(depth int) []diff {
-	diffs := make([]diff, 0)
+func researchGrowFactor(depth int) ([]growDiff, []int) {
+	diffs := make([]growDiff, 0)
+	caps := make([]int, 0)
 
 	slice := make([]bool, 1)
+	caps = append(caps, cap(slice))
 
-	previousAt := 1
-	previousPtr := unsafe.SliceData(slice)
+	previous := slice
+	previousDetectedAt := 1
 
 	for range depth {
-		slice = append(slice, true)
+		slice = append(slice, true) //nolint:makezero
 
-		currentPtr := unsafe.SliceData(slice)
-
-		if currentPtr != previousPtr {
+		if unsafe.SliceData(slice) != unsafe.SliceData(previous) {
+			// Difference data is filled in as if nothing is known about the
+			// current slice
 			detectedAt := len(slice)
 
-			from := previousAt - 1
+			from := previousDetectedAt - 1
 			to := detectedAt - 1
 
-			previousAt = detectedAt
-			previousPtr = currentPtr
+			previous = slice
+			previousDetectedAt = detectedAt
 
-			diff := diff{
+			diff := growDiff{
 				DetectedAt: detectedAt,
 				From:       from,
 				To:         to,
@@ -47,12 +49,17 @@ func researchGrowFactor(depth int) []diff {
 			}
 
 			diffs = append(diffs, diff)
+
+			// However, the capacity of the current slice is known
+			caps = append(caps, cap(slice))
 		}
 	}
 
-	return diffs
+	return diffs, caps
 }
 
 func TestResearchGrowFactor(t *testing.T) {
-	t.Logf("%+v", researchGrowFactor(1<<26))
+	diffs, caps := researchGrowFactor(1 << 26)
+
+	t.Logf("%+v\n%+v", diffs, caps)
 }
