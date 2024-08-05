@@ -2,6 +2,18 @@
 
 The code in different packages is almost identical. They differ only in the presence/absence of calls to the b.ResetTimer()/b.StopTimer() functions and the order in which the Benchmark* functions are written.
 
+Current package is a main package which was originally intended to be the only one.
+
+Package one: the only difference with the main package is the absence of the call to b.ResetTimer() in BenchmarkAssignmentSlice.
+
+Package two: the only difference with the main package is the absence of the call to b.StopTimer() in BenchmarkAssignmentSlice.
+
+Package three: the difference with the main package is the complete absence of calls to b.ResetTimer()/b.StopTimer()
+
+Package four: the difference with the package three is the reverse order of writing the Benchmark* functions.
+
+Package five: the difference with the main package is the reverse order of writing the Benchmark* functions.
+
 Running example:
 
 ```bash

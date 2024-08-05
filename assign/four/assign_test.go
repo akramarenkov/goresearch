@@ -1,4 +1,4 @@
-// The difference with the third package is the reverse order of writing the
+// The difference with the package three is the reverse order of writing the
 // Benchmark* functions.
 package four
 
