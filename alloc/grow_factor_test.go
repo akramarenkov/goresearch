@@ -17,49 +17,33 @@ type growDiff struct {
 	To int
 }
 
-func researchGrowFactor(depth int) ([]growDiff, []int) {
+func researchGrowFactor(depth int) []growDiff {
 	diffs := make([]growDiff, 0)
-	caps := make([]int, 0)
 
-	slice := make([]byte, 1)
-	caps = append(caps, cap(slice))
+	slice := make([]byte, 0)
 
 	previous := slice
-	previousDetectedAt := 1
 
 	for range depth {
-		slice = append(slice, 1) //nolint:makezero
+		slice = append(slice, 1)
 
 		if unsafe.SliceData(slice) != unsafe.SliceData(previous) {
-			// Difference data is filled in as if nothing is known about the
-			// current slice
-			detectedAt := len(slice)
-
-			from := previousDetectedAt - 1
-			to := detectedAt - 1
-
-			previous = slice
-			previousDetectedAt = detectedAt
-
 			diff := growDiff{
-				DetectedAt: detectedAt,
-				From:       from,
-				To:         to,
-				Factor:     float64(to) / float64(from),
+				DetectedAt: len(slice),
+				From:       cap(previous),
+				To:         cap(slice),
+				Factor:     float64(cap(slice)) / float64(cap(previous)),
 			}
 
-			diffs = append(diffs, diff)
+			previous = slice
 
-			// However, the capacity of the current slice is known
-			caps = append(caps, cap(slice))
+			diffs = append(diffs, diff)
 		}
 	}
 
-	return diffs, caps
+	return diffs
 }
 
 func TestResearchGrowFactor(t *testing.T) {
-	diffs, caps := researchGrowFactor(1 << 26)
-
-	t.Logf("%+v\n%+v", diffs, caps)
+	t.Logf("%+v", researchGrowFactor(1<<26))
 }
