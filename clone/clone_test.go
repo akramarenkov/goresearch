@@ -80,9 +80,6 @@ func BenchmarkThroughCopy(b *testing.B) {
 func Benchmark_16B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<4)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -98,9 +95,6 @@ func Benchmark_16B_SlicesClone(b *testing.B) {
 
 func Benchmark_16B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<4)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -118,9 +112,6 @@ func Benchmark_16B_ThroughAppend(b *testing.B) {
 func Benchmark_16B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<4)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -136,9 +127,6 @@ func Benchmark_16B_ThroughCopy(b *testing.B) {
 
 func Benchmark_32B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<5)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -156,9 +144,6 @@ func Benchmark_32B_SlicesClone(b *testing.B) {
 func Benchmark_32B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<5)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -174,9 +159,6 @@ func Benchmark_32B_ThroughAppend(b *testing.B) {
 
 func Benchmark_32B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<5)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -194,9 +176,6 @@ func Benchmark_32B_ThroughCopy(b *testing.B) {
 func Benchmark_64B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<6)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -212,9 +191,6 @@ func Benchmark_64B_SlicesClone(b *testing.B) {
 
 func Benchmark_64B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<6)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -232,9 +208,6 @@ func Benchmark_64B_ThroughAppend(b *testing.B) {
 func Benchmark_64B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<6)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -250,9 +223,6 @@ func Benchmark_64B_ThroughCopy(b *testing.B) {
 
 func Benchmark_128B_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<7)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -270,9 +240,6 @@ func Benchmark_128B_SlicesClone(b *testing.B) {
 func Benchmark_128B_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<7)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -288,9 +255,6 @@ func Benchmark_128B_ThroughAppend(b *testing.B) {
 
 func Benchmark_128B_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<7)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -308,9 +272,6 @@ func Benchmark_128B_ThroughCopy(b *testing.B) {
 func Benchmark_1KB_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<10)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -326,9 +287,6 @@ func Benchmark_1KB_SlicesClone(b *testing.B) {
 
 func Benchmark_1KB_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<10)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -346,9 +304,6 @@ func Benchmark_1KB_ThroughAppend(b *testing.B) {
 func Benchmark_1KB_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<10)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -364,9 +319,6 @@ func Benchmark_1KB_ThroughCopy(b *testing.B) {
 
 func Benchmark_1MB_SlicesClone(b *testing.B) {
 	original := make([]bool, 1<<20)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 
@@ -384,9 +336,6 @@ func Benchmark_1MB_SlicesClone(b *testing.B) {
 func Benchmark_1MB_ThroughAppend(b *testing.B) {
 	original := make([]bool, 1<<20)
 
-	original[0] = true
-	original[len(original)-1] = true
-
 	var copied []bool
 
 	b.ResetTimer()
@@ -402,9 +351,6 @@ func Benchmark_1MB_ThroughAppend(b *testing.B) {
 
 func Benchmark_1MB_ThroughCopy(b *testing.B) {
 	original := make([]bool, 1<<20)
-
-	original[0] = true
-	original[len(original)-1] = true
 
 	var copied []bool
 

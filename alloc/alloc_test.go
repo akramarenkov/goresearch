@@ -21,10 +21,6 @@ func testMakeAppend(t *testing.T, power int, modifier func(number int) int) {
 
 		slice := make([]bool, length)
 
-		for id := range slice {
-			slice[id] = true
-		}
-
 		require.Len(t, slice, length)
 		require.Equal(t, length, cap(slice))
 
