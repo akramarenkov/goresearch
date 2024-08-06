@@ -10,6 +10,9 @@ import (
 func TestMakeAppend(t *testing.T) {
 	testMakeAppend(t, 30, func(number int) int { return number })
 	testMakeAppend(t, 30, func(number int) int { return number - 1 })
+	testMakeAppend(t, 30, func(number int) int { return number - number%10 })
+	testMakeAppend(t, 30, func(number int) int { return number - number%100 })
+	testMakeAppend(t, 30, func(number int) int { return number - number%1000 })
 }
 
 func testMakeAppend(t *testing.T, power int, modifier func(number int) int) {
