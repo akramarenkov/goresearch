@@ -1,7 +1,6 @@
 package returns
 
 import (
-	"math/rand"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -57,11 +56,6 @@ func processStructPointerPassthrough(seed int, result *result) {
 }
 
 func BenchmarkDirect(b *testing.B) {
-	// seed and require is used to prevent compiler optimizations
-	seed := rand.Int() //nolint:gosec
-
-	b.ResetTimer()
-
 	first := 0
 	second := 0
 	third := 0
@@ -69,8 +63,9 @@ func BenchmarkDirect(b *testing.B) {
 	fifth := 0
 	sixth := 0
 
+	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		first, second, third, fourth, fifth, sixth = process(seed)
+		first, second, third, fourth, fifth, sixth = process(b.N)
 	}
 
 	b.StopTimer()
@@ -84,15 +79,11 @@ func BenchmarkDirect(b *testing.B) {
 }
 
 func BenchmarkStruct(b *testing.B) {
-	// seed and require is used to prevent compiler optimizations
-	seed := rand.Int() //nolint:gosec
-
-	b.ResetTimer()
-
 	result := result{}
 
+	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		result = processStruct(seed)
+		result = processStruct(b.N)
 	}
 
 	b.StopTimer()
@@ -106,15 +97,11 @@ func BenchmarkStruct(b *testing.B) {
 }
 
 func BenchmarkStructPointer(b *testing.B) {
-	// seed and require is used to prevent compiler optimizations
-	seed := rand.Int() //nolint:gosec
-
-	b.ResetTimer()
-
 	result := &result{}
 
+	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		result = processStructPointer(seed)
+		result = processStructPointer(b.N)
 	}
 
 	b.StopTimer()
@@ -128,15 +115,11 @@ func BenchmarkStructPointer(b *testing.B) {
 }
 
 func BenchmarkStructPointerPassthrough(b *testing.B) {
-	// seed and require is used to prevent compiler optimizations
-	seed := rand.Int() //nolint:gosec
-
-	b.ResetTimer()
-
 	result := &result{}
 
+	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		processStructPointerPassthrough(seed, result)
+		processStructPointerPassthrough(b.N, result)
 	}
 
 	b.StopTimer()
