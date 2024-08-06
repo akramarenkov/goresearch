@@ -3,6 +3,7 @@ package clone
 import (
 	"slices"
 	"testing"
+	"unsafe"
 
 	"github.com/stretchr/testify/require"
 )
@@ -35,7 +36,7 @@ func BenchmarkSlicesClone(b *testing.B) {
 
 	require.Equal(b, expected, copied)
 	require.Equal(b, expected, original)
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func BenchmarkThroughAppend(b *testing.B) {
@@ -54,7 +55,7 @@ func BenchmarkThroughAppend(b *testing.B) {
 
 	require.Equal(b, expected, copied)
 	require.Equal(b, expected, original)
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func BenchmarkThroughCopy(b *testing.B) {
@@ -73,7 +74,7 @@ func BenchmarkThroughCopy(b *testing.B) {
 
 	require.Equal(b, expected, copied)
 	require.Equal(b, expected, original)
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_16B_SlicesClone(b *testing.B) {
@@ -92,7 +93,7 @@ func Benchmark_16B_SlicesClone(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_16B_ThroughAppend(b *testing.B) {
@@ -111,7 +112,7 @@ func Benchmark_16B_ThroughAppend(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_16B_ThroughCopy(b *testing.B) {
@@ -130,7 +131,7 @@ func Benchmark_16B_ThroughCopy(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_32B_SlicesClone(b *testing.B) {
@@ -149,7 +150,7 @@ func Benchmark_32B_SlicesClone(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_32B_ThroughAppend(b *testing.B) {
@@ -168,7 +169,7 @@ func Benchmark_32B_ThroughAppend(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_32B_ThroughCopy(b *testing.B) {
@@ -187,7 +188,7 @@ func Benchmark_32B_ThroughCopy(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_64B_SlicesClone(b *testing.B) {
@@ -206,7 +207,7 @@ func Benchmark_64B_SlicesClone(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_64B_ThroughAppend(b *testing.B) {
@@ -225,7 +226,7 @@ func Benchmark_64B_ThroughAppend(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_64B_ThroughCopy(b *testing.B) {
@@ -244,7 +245,7 @@ func Benchmark_64B_ThroughCopy(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_128B_SlicesClone(b *testing.B) {
@@ -263,7 +264,7 @@ func Benchmark_128B_SlicesClone(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_128B_ThroughAppend(b *testing.B) {
@@ -282,7 +283,7 @@ func Benchmark_128B_ThroughAppend(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_128B_ThroughCopy(b *testing.B) {
@@ -301,7 +302,7 @@ func Benchmark_128B_ThroughCopy(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_1KB_SlicesClone(b *testing.B) {
@@ -320,7 +321,7 @@ func Benchmark_1KB_SlicesClone(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_1KB_ThroughAppend(b *testing.B) {
@@ -339,7 +340,7 @@ func Benchmark_1KB_ThroughAppend(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_1KB_ThroughCopy(b *testing.B) {
@@ -358,7 +359,7 @@ func Benchmark_1KB_ThroughCopy(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_1MB_SlicesClone(b *testing.B) {
@@ -377,7 +378,7 @@ func Benchmark_1MB_SlicesClone(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_1MB_ThroughAppend(b *testing.B) {
@@ -396,7 +397,7 @@ func Benchmark_1MB_ThroughAppend(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
 func Benchmark_1MB_ThroughCopy(b *testing.B) {
@@ -415,5 +416,5 @@ func Benchmark_1MB_ThroughCopy(b *testing.B) {
 
 	b.StopTimer()
 
-	require.NotSame(b, original, copied)
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
