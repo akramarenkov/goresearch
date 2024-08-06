@@ -1,7 +1,5 @@
 # Performance comparison of assignment and append in slice
 
-The code in different packages is almost identical. They differ only in the presence/absence of calls to the b.ResetTimer()/b.StopTimer() functions and the order in which the Benchmark* functions are written.
-
 Current package is a **main** package which was originally intended to be the only one.
 
 Package **reverse**: the difference with the **main** package is the reverse order of writing the Benchmark* functions.
