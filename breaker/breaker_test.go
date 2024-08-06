@@ -1,28 +1,13 @@
 package breaker
 
 import (
-	"os"
-	"strconv"
 	"sync/atomic"
 	"testing"
 
-	"github.com/akramarenkov/goresearch/internal/consts"
+	"github.com/akramarenkov/goresearch/internal/getenv"
 
 	"github.com/stretchr/testify/require"
 )
-
-func getTerminateFromEnv(b *testing.B) bool {
-	env := os.Getenv(consts.EnvPrefix + "TERMINATE")
-
-	if env == "" {
-		return false
-	}
-
-	terminate, err := strconv.ParseBool(env)
-	require.NoError(b, err)
-
-	return terminate
-}
 
 func BenchmarkIdle(b *testing.B) {
 	for range b.N {
@@ -63,7 +48,10 @@ func BenchmarkChannelClosed(b *testing.B) {
 func BenchmarkAtomic(b *testing.B) {
 	breaker := &atomic.Bool{}
 
-	breaker.Store(getTerminateFromEnv(b))
+	terminate, err := getenv.Terminate(false)
+	require.NoError(b, err)
+
+	breaker.Store(terminate)
 
 	b.ResetTimer()
 

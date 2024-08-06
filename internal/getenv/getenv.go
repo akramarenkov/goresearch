@@ -3,20 +3,45 @@ package getenv
 import (
 	"os"
 	"strconv"
-
-	"github.com/akramarenkov/goresearch/internal/consts"
 )
 
 const (
-	sizeKey = "SIZE"
+	prefix = "GORESEARCH_"
 )
 
-func Size(defaultSize int) (int, error) {
-	env := os.Getenv(consts.EnvPrefix + sizeKey)
+const (
+	keySize      = "SIZE"
+	keyTerminate = "TERMINATE"
+)
+
+func envVar(key string) string {
+	return prefix + key
+}
+
+func Size(def int) (int, error) {
+	return integer(keySize, def)
+}
+
+func Terminate(def bool) (bool, error) {
+	return boolean(keyTerminate, def)
+}
+
+func integer(key string, def int) (int, error) {
+	env := os.Getenv(prefix + key)
 
 	if env == "" {
-		return defaultSize, nil
+		return def, nil
 	}
 
 	return strconv.Atoi(env)
+}
+
+func boolean(key string, def bool) (bool, error) {
+	env := os.Getenv(prefix + key)
+
+	if env == "" {
+		return def, nil
+	}
+
+	return strconv.ParseBool(env)
 }
