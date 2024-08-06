@@ -21,14 +21,14 @@ func researchGrowFactor(depth int) ([]growDiff, []int) {
 	diffs := make([]growDiff, 0)
 	caps := make([]int, 0)
 
-	slice := make([]bool, 1)
+	slice := make([]byte, 1)
 	caps = append(caps, cap(slice))
 
 	previous := slice
 	previousDetectedAt := 1
 
 	for range depth {
-		slice = append(slice, true) //nolint:makezero
+		slice = append(slice, 1) //nolint:makezero
 
 		if unsafe.SliceData(slice) != unsafe.SliceData(previous) {
 			// Difference data is filled in as if nothing is known about the
