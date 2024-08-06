@@ -17,11 +17,11 @@ func BenchmarkAssignmentSlice(b *testing.B) {
 
 	b.ResetTimer()
 
-	slice := make([]bool, size)
+	slice := make([]byte, size)
 
 	for range b.N {
 		for id := range size {
-			slice[id] = true
+			slice[id] = 1
 		}
 	}
 
@@ -36,13 +36,13 @@ func BenchmarkAppendSlice(b *testing.B) {
 
 	b.ResetTimer()
 
-	slice := make([]bool, 0, size)
+	slice := make([]byte, 0, size)
 
 	for range b.N {
 		slice = slice[:0]
 
 		for range size {
-			slice = append(slice, true)
+			slice = append(slice, 1)
 		}
 	}
 
