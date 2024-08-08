@@ -57,11 +57,11 @@ func testAppendCapacity(t *testing.T, power int, modifier func(number int) int) 
 			discrepancy++
 		}
 
-		require.Equal(t, length, len(slice))
+		require.Len(t, slice, length)
 
 		previous := slice
 
-		slice = append(slice, 1) //nolint:makezero
+		slice = append(slice, 1)
 
 		if unsafe.SliceData(previous) == unsafe.SliceData(slice) {
 			same++
