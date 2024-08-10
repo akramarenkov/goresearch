@@ -77,8 +77,8 @@ func BenchmarkThroughCopy(b *testing.B) {
 	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
 }
 
-func Benchmark_16B_SlicesClone(b *testing.B) {
-	original := make([]byte, 1<<4)
+func benchmarkBytesSlicesClone(b *testing.B, length int) {
+	original := make([]byte, length)
 
 	var copied []byte
 
@@ -91,276 +91,108 @@ func Benchmark_16B_SlicesClone(b *testing.B) {
 	b.StopTimer()
 
 	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+}
+
+func benchmarkBytesThroughAppend(b *testing.B, length int) {
+	original := make([]byte, length)
+
+	var copied []byte
+
+	b.ResetTimer()
+
+	for range b.N {
+		copied = throughAppend(original)
+	}
+
+	b.StopTimer()
+
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+}
+
+func benchmarkBytesThroughCopy(b *testing.B, length int) {
+	original := make([]byte, length)
+
+	var copied []byte
+
+	b.ResetTimer()
+
+	for range b.N {
+		copied = throughCopy(original)
+	}
+
+	b.StopTimer()
+
+	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+}
+
+func Benchmark_16B_SlicesClone(b *testing.B) {
+	benchmarkBytesSlicesClone(b, 1<<4)
 }
 
 func Benchmark_16B_ThroughAppend(b *testing.B) {
-	original := make([]byte, 1<<4)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughAppend(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughAppend(b, 1<<4)
 }
 
 func Benchmark_16B_ThroughCopy(b *testing.B) {
-	original := make([]byte, 1<<4)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughCopy(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughCopy(b, 1<<4)
 }
 
 func Benchmark_32B_SlicesClone(b *testing.B) {
-	original := make([]byte, 1<<5)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = slices.Clone(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesSlicesClone(b, 1<<5)
 }
 
 func Benchmark_32B_ThroughAppend(b *testing.B) {
-	original := make([]byte, 1<<5)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughAppend(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughAppend(b, 1<<5)
 }
 
 func Benchmark_32B_ThroughCopy(b *testing.B) {
-	original := make([]byte, 1<<5)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughCopy(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughCopy(b, 1<<5)
 }
 
 func Benchmark_64B_SlicesClone(b *testing.B) {
-	original := make([]byte, 1<<6)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = slices.Clone(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesSlicesClone(b, 1<<6)
 }
 
 func Benchmark_64B_ThroughAppend(b *testing.B) {
-	original := make([]byte, 1<<6)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughAppend(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughAppend(b, 1<<6)
 }
 
 func Benchmark_64B_ThroughCopy(b *testing.B) {
-	original := make([]byte, 1<<6)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughCopy(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughCopy(b, 1<<6)
 }
 
 func Benchmark_128B_SlicesClone(b *testing.B) {
-	original := make([]byte, 1<<7)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = slices.Clone(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesSlicesClone(b, 1<<7)
 }
 
 func Benchmark_128B_ThroughAppend(b *testing.B) {
-	original := make([]byte, 1<<7)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughAppend(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughAppend(b, 1<<7)
 }
 
 func Benchmark_128B_ThroughCopy(b *testing.B) {
-	original := make([]byte, 1<<7)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughCopy(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughCopy(b, 1<<7)
 }
 
 func Benchmark_1KB_SlicesClone(b *testing.B) {
-	original := make([]byte, 1<<10)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = slices.Clone(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesSlicesClone(b, 1<<10)
 }
 
 func Benchmark_1KB_ThroughAppend(b *testing.B) {
-	original := make([]byte, 1<<10)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughAppend(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughAppend(b, 1<<10)
 }
 
 func Benchmark_1KB_ThroughCopy(b *testing.B) {
-	original := make([]byte, 1<<10)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughCopy(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughCopy(b, 1<<10)
 }
 
 func Benchmark_1MB_SlicesClone(b *testing.B) {
-	original := make([]byte, 1<<20)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = slices.Clone(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesSlicesClone(b, 1<<20)
 }
 
 func Benchmark_1MB_ThroughAppend(b *testing.B) {
-	original := make([]byte, 1<<20)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughAppend(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughAppend(b, 1<<20)
 }
 
 func Benchmark_1MB_ThroughCopy(b *testing.B) {
-	original := make([]byte, 1<<20)
-
-	var copied []byte
-
-	b.ResetTimer()
-
-	for range b.N {
-		copied = throughCopy(original)
-	}
-
-	b.StopTimer()
-
-	require.NotSame(b, unsafe.SliceData(original), unsafe.SliceData(copied))
+	benchmarkBytesThroughCopy(b, 1<<20)
 }
