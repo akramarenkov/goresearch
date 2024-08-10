@@ -160,7 +160,7 @@ func BenchmarkTwoVariadicSlice(b *testing.B) {
 		args[0] = b.N
 		args[1] = b.N
 
-		number = oneVariadic(args...)
+		number = twoVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -208,7 +208,7 @@ func BenchmarkThreeVariadicSlice(b *testing.B) {
 		args[1] = b.N
 		args[2] = b.N
 
-		number = oneVariadic(args...)
+		number = threeVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -257,7 +257,7 @@ func BenchmarkFourVariadicSlice(b *testing.B) {
 		args[2] = b.N
 		args[3] = b.N
 
-		number = oneVariadic(args...)
+		number = fourVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -308,7 +308,7 @@ func BenchmarkSixVariadicSlice(b *testing.B) {
 		args[4] = b.N
 		args[5] = b.N
 
-		number = oneVariadic(args...)
+		number = sixVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -361,7 +361,7 @@ func BenchmarkEightVariadicSlice(b *testing.B) {
 		args[6] = b.N
 		args[7] = b.N
 
-		number = oneVariadic(args...)
+		number = eightVariadic(args...)
 	}
 
 	b.StopTimer()
@@ -416,7 +416,7 @@ func BenchmarkTenVariadicSlice(b *testing.B) {
 		args[8] = b.N
 		args[9] = b.N
 
-		number = oneVariadic(args...)
+		number = tenVariadic(args...)
 	}
 
 	b.StopTimer()
