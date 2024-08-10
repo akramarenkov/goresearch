@@ -15,39 +15,38 @@ type result struct {
 	Sixth  int
 }
 
-func process(seed int) (int, int, int, int, int, int) {
+func doDirect(seed int) (int, int, int, int, int, int) {
 	return seed, seed * 2, seed * 3, seed * 4, seed * 5, seed * 6
 }
 
-func processStruct(seed int) result {
+func doStruct(seed int) result {
 	result := result{
-		First: seed,
+		First:  seed,
+		Second: seed * 2,
+		Third:  seed * 3,
+		Fourth: seed * 4,
+		Fifth:  seed * 5,
+		Sixth:  seed * 6,
 	}
-
-	result.Second = seed * 2
-	result.Third = seed * 3
-	result.Fourth = seed * 4
-	result.Fifth = seed * 5
-	result.Sixth = seed * 6
 
 	return result
 }
 
-func processStructPointer(seed int) *result {
+func doStructPointer(seed int) *result {
 	result := &result{
-		First: seed,
+		First:  seed,
+		Second: seed * 2,
+		Third:  seed * 3,
+		Fourth: seed * 4,
+		Fifth:  seed * 5,
+		Sixth:  seed * 6,
 	}
-
-	result.Second = seed * 2
-	result.Third = seed * 3
-	result.Fourth = seed * 4
-	result.Fifth = seed * 5
-	result.Sixth = seed * 6
 
 	return result
 }
 
-func processStructPointerPassthrough(seed int, result *result) {
+func doStructPointerPassthrough(seed int, result *result) {
+	result.First = seed
 	result.Second = seed * 2
 	result.Third = seed * 3
 	result.Fourth = seed * 4
@@ -65,7 +64,7 @@ func BenchmarkDirect(b *testing.B) {
 
 	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		first, second, third, fourth, fifth, sixth = process(b.N)
+		first, second, third, fourth, fifth, sixth = doDirect(b.N)
 	}
 
 	b.StopTimer()
@@ -83,7 +82,7 @@ func BenchmarkStruct(b *testing.B) {
 
 	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		result = processStruct(b.N)
+		result = doStruct(b.N)
 	}
 
 	b.StopTimer()
@@ -101,7 +100,7 @@ func BenchmarkStructPointer(b *testing.B) {
 
 	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		result = processStructPointer(b.N)
+		result = doStructPointer(b.N)
 	}
 
 	b.StopTimer()
@@ -119,7 +118,7 @@ func BenchmarkStructPointerPassthrough(b *testing.B) {
 
 	// b.N and require is used to prevent compiler optimizations
 	for range b.N {
-		processStructPointerPassthrough(b.N, result)
+		doStructPointerPassthrough(b.N, result)
 	}
 
 	b.StopTimer()

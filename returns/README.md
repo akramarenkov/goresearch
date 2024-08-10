@@ -13,12 +13,12 @@ goos: linux
 goarch: amd64
 pkg: github.com/akramarenkov/goresearch/returns
 cpu: AMD Ryzen 5 3600 6-Core Processor              
-BenchmarkDirect-12                          1000000000           0.7457 ns/op         0 B/op           0 allocs/op
-BenchmarkStruct-12                          176745098            6.658 ns/op          0 B/op           0 allocs/op
-BenchmarkStructPointer-12                   24288409            48.33 ns/op          48 B/op           1 allocs/op
-BenchmarkStructPointerPassthrough-12        842854261            1.242 ns/op          0 B/op           0 allocs/op
+BenchmarkDirect-12                          1000000000             0.5833 ns/op         0 B/op           0 allocs/op
+BenchmarkStruct-12                          184950351              6.591 ns/op          0 B/op           0 allocs/op
+BenchmarkStructPointer-12                   29304154              46.21 ns/op          48 B/op           1 allocs/op
+BenchmarkStructPointerPassthrough-12        779165852              1.472 ns/op          0 B/op           0 allocs/op
 PASS
-ok      github.com/akramarenkov/goresearch/returns    5.115s
+ok      github.com/akramarenkov/goresearch/returns    5.234s
 ```
 
 Running example without optimizations:
@@ -34,10 +34,10 @@ goos: linux
 goarch: amd64
 pkg: github.com/akramarenkov/goresearch/returns
 cpu: AMD Ryzen 5 3600 6-Core Processor              
-BenchmarkDirect-12                          248453119            4.951 ns/op          0 B/op           0 allocs/op
-BenchmarkStruct-12                          154329919            7.844 ns/op          0 B/op           0 allocs/op
-BenchmarkStructPointer-12                   27789607            51.52 ns/op          48 B/op           1 allocs/op
-BenchmarkStructPointerPassthrough-12        381699048            2.996 ns/op          0 B/op           0 allocs/op
+BenchmarkDirect-12                          246946584             5.064 ns/op          0 B/op           0 allocs/op
+BenchmarkStruct-12                          146410693             8.040 ns/op          0 B/op           0 allocs/op
+BenchmarkStructPointer-12                   28596062             50.33 ns/op          48 B/op           1 allocs/op
+BenchmarkStructPointerPassthrough-12        289283244             3.891 ns/op          0 B/op           0 allocs/op
 PASS
-ok      github.com/akramarenkov/goresearch/returns    6.492s
+ok      github.com/akramarenkov/goresearch/returns    6.793s
 ```
