@@ -3,7 +3,7 @@
 Running example:
 
 ```bash
-for bench in $( go test -list ".*" | grep "Benchmark" ); do go test -run=^$ "-bench=^${bench}$" -benchmem -benchtime=1x '.'  | grep "Benchmark"; sleep 2; done
+for bench in $( go test -list ".*" | grep "Benchmark" ); do go test -run=^$ "-bench=^${bench}$" -benchmem -benchtime=1x '.' | grep "Benchmark"; sleep 2; done
 ```
 
 Result example:
@@ -84,7 +84,7 @@ BenchmarkGrowRemake_32_4294959105_33-12     1    3333256132 ns/op    8589937896 
 Running example without optimizations:
 
 ```bash
-for bench in $( go test -list ".*" | grep "Benchmark" ); do go test -run=^$ "-bench=^${bench}$" -benchmem -benchtime=1x -gcflags=-N  '.'  | grep "Benchmark"; sleep 2; done
+for bench in $( go test -list ".*" | grep "Benchmark" ); do go test -run=^$ "-bench=^${bench}$" -benchmem -benchtime=1x -gcflags=-N  '.' | grep "Benchmark"; sleep 2; done
 ```
 
 Result example without optimizations:
