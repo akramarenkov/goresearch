@@ -6,7 +6,7 @@ unsigned long long SlowMultiplication(unsigned long long first, unsigned long lo
     unsigned long long quantity;
     unsigned long long remainder;
 
-    const unsigned long long parallelization = 4;
+    const unsigned long long parallelization = 64;
 
     __m256i added;
     __m256i product;
@@ -31,6 +31,21 @@ unsigned long long SlowMultiplication(unsigned long long first, unsigned long lo
 
     for (iteration = 0; iteration < quantity; iteration++)
     {
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
+        product = _mm256_add_epi64(product, added);
         product = _mm256_add_epi64(product, added);
     }
 
