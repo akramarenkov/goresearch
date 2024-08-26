@@ -22,6 +22,22 @@ func SlowMultiplication(first uint64, second uint64) uint64 {
 	return product
 }
 
+// Only for numbers without fractional parts.
+func SlowMultiplicationF64(first float64, second float64) float64 {
+	product := float64(0)
+
+	for range uint64(second) {
+		product += first
+	}
+
+	return product
+}
+
 func SlowMultiplicationSIMD(first uint64, second uint64) uint64 {
 	return uint64(C.SlowMultiplication(C.ulonglong(first), C.ulonglong(second)))
+}
+
+// Only for numbers without fractional parts.
+func SlowMultiplicationF64SIMD(first float64, second float64) float64 {
+	return float64(C.SlowMultiplicationF64(C.double(first), C.double(second)))
 }

@@ -18,6 +18,27 @@ func TestSlowMultiplication(t *testing.T) {
 	}
 }
 
+func TestSlowMultiplicationF64(t *testing.T) {
+	require.True(t, cpuid.CPU.Supports(cpuid.AVX))
+
+	for first := range uint64(1 << 10) {
+		for second := range uint64(1 << 10) {
+			require.InDelta(
+				t,
+				float64(first*second),
+				SlowMultiplicationF64(float64(first), float64(second)),
+				0,
+			)
+			require.InDelta(
+				t,
+				float64(first*second),
+				SlowMultiplicationF64SIMD(float64(first), float64(second)),
+				0,
+			)
+		}
+	}
+}
+
 func BenchmarkSlowMultiplication_64(b *testing.B) {
 	benchmarkSlowMultiplication(b, 1<<6)
 }
@@ -92,4 +113,80 @@ func benchmarkSlowMultiplicationSIMD(b *testing.B, second uint64) {
 	b.StopTimer()
 
 	require.Equal(b, first*second, product)
+}
+
+func BenchmarkSlowMultiplicationF64_64(b *testing.B) {
+	benchmarkSlowMultiplicationF64(b, 1<<6)
+}
+
+func BenchmarkSlowMultiplicationF64SIMD_64(b *testing.B) {
+	benchmarkSlowMultiplicationF64SIMD(b, 1<<6)
+}
+
+func BenchmarkSlowMultiplicationF64_128(b *testing.B) {
+	benchmarkSlowMultiplicationF64(b, 1<<7)
+}
+
+func BenchmarkSlowMultiplicationF64SIMD_128(b *testing.B) {
+	benchmarkSlowMultiplicationF64SIMD(b, 1<<7)
+}
+
+func BenchmarkSlowMultiplicationF64_256(b *testing.B) {
+	benchmarkSlowMultiplicationF64(b, 1<<8)
+}
+
+func BenchmarkSlowMultiplicationF64SIMD_256(b *testing.B) {
+	benchmarkSlowMultiplicationF64SIMD(b, 1<<8)
+}
+
+func BenchmarkSlowMultiplicationF64_512(b *testing.B) {
+	benchmarkSlowMultiplicationF64(b, 1<<9)
+}
+
+func BenchmarkSlowMultiplicationF64SIMD_512(b *testing.B) {
+	benchmarkSlowMultiplicationF64SIMD(b, 1<<9)
+}
+
+func BenchmarkSlowMultiplicationF64_1024(b *testing.B) {
+	benchmarkSlowMultiplicationF64(b, 1<<10)
+}
+
+func BenchmarkSlowMultiplicationF64SIMD_1024(b *testing.B) {
+	benchmarkSlowMultiplicationF64SIMD(b, 1<<10)
+}
+
+func BenchmarkSlowMultiplicationF64_65536(b *testing.B) {
+	benchmarkSlowMultiplicationF64(b, 1<<16)
+}
+
+func BenchmarkSlowMultiplicationF64SIMD_65536(b *testing.B) {
+	benchmarkSlowMultiplicationF64SIMD(b, 1<<16)
+}
+
+func benchmarkSlowMultiplicationF64(b *testing.B, second uint64) {
+	product := float64(0)
+
+	first := float64(3)
+
+	for range b.N {
+		product = SlowMultiplicationF64(first, float64(second))
+	}
+
+	b.StopTimer()
+
+	require.InDelta(b, first*float64(second), product, 0)
+}
+
+func benchmarkSlowMultiplicationF64SIMD(b *testing.B, second uint64) {
+	product := float64(0)
+
+	first := float64(3)
+
+	for range b.N {
+		product = SlowMultiplicationF64SIMD(first, float64(second))
+	}
+
+	b.StopTimer()
+
+	require.InDelta(b, first*float64(second), product, 0)
 }
