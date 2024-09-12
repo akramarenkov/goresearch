@@ -19,14 +19,14 @@ func envVar(key string) string {
 }
 
 func Size(def int) (int, error) {
-	return integer(keySize, def)
+	return Int(keySize, def)
 }
 
 func Terminate(def bool) (bool, error) {
-	return boolean(keyTerminate, def)
+	return Boolean(keyTerminate, def)
 }
 
-func integer(key string, def int) (int, error) {
+func Int(key string, def int) (int, error) {
 	env := os.Getenv(prefix + key)
 
 	if env == "" {
@@ -36,7 +36,7 @@ func integer(key string, def int) (int, error) {
 	return strconv.Atoi(env)
 }
 
-func boolean(key string, def bool) (bool, error) {
+func Boolean(key string, def bool) (bool, error) {
 	env := os.Getenv(prefix + key)
 
 	if env == "" {

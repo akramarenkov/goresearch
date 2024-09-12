@@ -29,25 +29,25 @@ func TestSize(t *testing.T) {
 	require.Error(t, err)
 }
 
-func TestInteger(t *testing.T) {
+func TestInt(t *testing.T) {
 	const (
 		def = 20
 		key = "INT"
 	)
 
-	value, err := integer(key, def)
+	value, err := Int(key, def)
 	require.NoError(t, err)
 	require.Equal(t, def, value)
 
 	t.Setenv(envVar(key), "1")
 
-	value, err = integer(key, def)
+	value, err = Int(key, def)
 	require.NoError(t, err)
 	require.Equal(t, 1, value)
 
 	t.Setenv(envVar(key), "1.")
 
-	_, err = integer(key, def)
+	_, err = Int(key, def)
 	require.Error(t, err)
 }
 
@@ -57,18 +57,18 @@ func TestBoolean(t *testing.T) {
 		key = "BOOL"
 	)
 
-	value, err := boolean(key, def)
+	value, err := Boolean(key, def)
 	require.NoError(t, err)
 	require.True(t, value)
 
 	t.Setenv(envVar(key), "false")
 
-	value, err = boolean(key, def)
+	value, err = Boolean(key, def)
 	require.NoError(t, err)
 	require.False(t, value)
 
 	t.Setenv(envVar(key), "flase")
 
-	_, err = boolean(key, def)
+	_, err = Boolean(key, def)
 	require.Error(t, err)
 }
