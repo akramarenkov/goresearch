@@ -1,6 +1,6 @@
 module github.com/akramarenkov/goresearch
 
-go 1.22.3
+go 1.23
 
 require (
 	github.com/klauspost/cpuid/v2 v2.2.8
