@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	benchmarkSamples = []string{
+	benchmarkSamples = []string{ //nolint:gochecknoglobals // Used as const
 		"0123456789",
 		"1011121314",
 		"1516171819",
