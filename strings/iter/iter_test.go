@@ -39,6 +39,24 @@ func TestIter(t *testing.T) {
 	require.Equal(t, expectedLengths, actualLengths)
 }
 
+func BenchmarkIterLen1(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:1] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
 func BenchmarkIterByte1(b *testing.B) {
 	input := ""
 
@@ -46,12 +64,10 @@ func BenchmarkIterByte1(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -66,12 +82,28 @@ func BenchmarkIterRune1(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen2(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:2] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -86,12 +118,10 @@ func BenchmarkIterByte2(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -106,12 +136,28 @@ func BenchmarkIterRune2(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen3(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:3] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -126,12 +172,10 @@ func BenchmarkIterByte3(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -146,12 +190,28 @@ func BenchmarkIterRune3(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen4(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:4] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -166,12 +226,10 @@ func BenchmarkIterByte4(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -186,12 +244,28 @@ func BenchmarkIterRune4(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen5(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:5] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -206,12 +280,10 @@ func BenchmarkIterByte5(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -226,12 +298,28 @@ func BenchmarkIterRune5(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen6(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:6] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -246,12 +334,10 @@ func BenchmarkIterByte6(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -266,12 +352,28 @@ func BenchmarkIterRune6(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen7(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:7] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -286,12 +388,10 @@ func BenchmarkIterByte7(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -306,12 +406,28 @@ func BenchmarkIterRune7(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen8(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:8] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -326,12 +442,10 @@ func BenchmarkIterByte8(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -346,12 +460,28 @@ func BenchmarkIterRune8(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen9(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:9] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -366,12 +496,10 @@ func BenchmarkIterByte9(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -386,12 +514,28 @@ func BenchmarkIterRune9(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
 		for id := range input {
+			last = id
+		}
+	}
+
+	require.NotNil(b, last)
+}
+
+func BenchmarkIterLen10(b *testing.B) {
+	input := ""
+
+	for _, sample := range benchmarkSamples[:10] {
+		input += sample
+	}
+
+	var last int
+
+	for range b.N {
+		for id := range len(input) {
 			last = id
 		}
 	}
@@ -406,12 +550,10 @@ func BenchmarkIterByte10(b *testing.B) {
 		input += sample
 	}
 
-	b.ResetTimer()
-
 	var last int
 
 	for range b.N {
-		for id := range len(input) {
+		for id := range []byte(input) {
 			last = id
 		}
 	}
@@ -425,8 +567,6 @@ func BenchmarkIterRune10(b *testing.B) {
 	for _, sample := range benchmarkSamples[:10] {
 		input += sample
 	}
-
-	b.ResetTimer()
 
 	var last int
 
