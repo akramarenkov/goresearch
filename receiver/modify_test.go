@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+//nolint:recvcheck // Made intentionally for demonstration purposes
 type fields struct {
 	first  int
 	second int

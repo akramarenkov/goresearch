@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/akramarenkov/goresearch/internal/getenv"
+
 	"github.com/stretchr/testify/require"
 )
 
